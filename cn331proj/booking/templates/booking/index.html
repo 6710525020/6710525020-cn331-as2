@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><title>Rooms</title>
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial}</style>
+</head>
+<body>
+  <h1>Room Booking</h1>
+
+  <nav>
+    {% if user.is_authenticated %}
+      Hello, {{ user.username }} |
+      <a href="{% url 'mine' %}">My Bookings</a> |
+      <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}<button>Logout</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a> |
+      <a href="{% url 'signup' %}">Sign up</a>
+    {% endif %}
+  </nav>
+  <hr>
+
+  <h2>Rooms</h2>
+  <ul>
+    {% for room in rooms %}
+      <li>
+        <a href="{% url 'room_detail' room.id %}">{{ room.name }}</a>
+        (Capacity: {{ room.capacity }}, Max: {{ room.max_hours }}h, Status: {{ room.status }})
+      </li>
+    {% empty %}
+      <li>No rooms available.</li>
+    {% endfor %}
+  </ul>
+
+  <nav>
+  {% if user.is_authenticated %}
+    Hello, {{ user.username }} |
+    <a href="{% url 'mine' %}">My Bookings</a> |
+    {% if user.is_staff %}
+      <a href="{% url 'admin_bookings' %}">All Bookings (Admin)</a> |
+    {% endif %}
+    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+      {% csrf_token %}<button>Logout</button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign up</a>
+  {% endif %}
+    </nav>
+</body>
+</html>

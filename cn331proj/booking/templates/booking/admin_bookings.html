@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><title>All Bookings (Admin)</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial}
+    table{border-collapse:collapse;width:100%}
+    th,td{border:1px solid #ddd;padding:8px}
+    th{background:#f3f4f6;text-align:left}
+    form.inline{display:inline}
+  </style>
+</head>
+<body>
+  <h1>All Bookings (Admin)</h1>
+  <p>
+    <a href="/">← Back to Rooms</a>
+    |
+    <form class="inline" method="post" action="{% url 'logout' %}">{% csrf_token %}<button>Logout</button></form>
+  </p>
+
+  <h3>Filters</h3>
+  <form method="get">
+    <label>Room:
+      <select name="room">
+        <option value="">-- All --</option>
+        {% for r in rooms %}
+          <option value="{{ r.id }}" {% if room_selected|stringformat:"s" == r.id|stringformat:"s" %}selected{% endif %}>
+            {{ r.name }}
+          </option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Username:
+      <input type="text" name="user" value="{{ username_q }}" placeholder="e.g. alice">
+    </label>
+    <button type="submit">Apply</button>
+    <a href="{% url 'admin_bookings' %}">Reset</a>
+  </form>
+
+  <h3 style="margin-top:1rem;">Results</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Room</th>
+        <th>User</th>
+        <th>Start</th>
+        <th>End</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for b in bookings %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ b.room.name }}</td>
+          <td>{{ b.user.username }}</td>
+          <td>{{ b.start_time }}</td>
+          <td>{{ b.end_time }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5">No bookings.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
