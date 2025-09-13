@@ -1,51 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><title>Rooms</title>
+  <meta charset="utf-8">
+  <meta name='viewport' content='width=device-width, initial-sclae=1'>
+  <title>Rooms</title>
   <style>body{font-family:system-ui,Segoe UI,Roboto,Arial}</style>
 </head>
 <body>
   <h1>Room Booking</h1>
-
   <nav>
     {% if user.is_authenticated %}
       Hello, {{ user.username }} |
-      <a href="{% url 'mine' %}">My Bookings</a> |
-      <form method="post" action="{% url 'logout' %}" style="display:inline;">
-        {% csrf_token %}<button>Logout</button>
-      </form>
+      <a href="{% url 'mine' %}">My Bookings</a>
     {% else %}
       <a href="{% url 'login' %}">Login</a> |
       <a href="{% url 'signup' %}">Sign up</a>
     {% endif %}
   </nav>
-  <hr>
+  
+<hr>
 
   <h2>Rooms</h2>
-  <ul>
-    {% for room in rooms %}
-      <li>
-        <a href="{% url 'room_detail' room.id %}">{{ room.name }}</a>
-        (Capacity: {{ room.capacity }}, Max: {{ room.max_hours }}h, Status: {{ room.status }})
-      </li>
-    {% empty %}
-      <li>No rooms available.</li>
-    {% endfor %}
-  </ul>
+  <table border="0" width="100%" cellpadding="20">
+    <tr align="center" valign="top">
+      {% for room in rooms %}
+        <td width="33%">
+          <h3>{{ room.name }}</h3>
+          <p>capacity : {{ room.capacity }} person</p>
+          <p>Max hours per booking : {{ room.max_hours }} hour</p>
+          <p>Status : {{ room.status }} </p>
+          <p><a href="{% url 'room_detail' room.id %}">{{ room.name }}</a></p>
+        </td>
 
-  <nav>
-  {% if user.is_authenticated %}
-    Hello, {{ user.username }} |
-    <a href="{% url 'mine' %}">My Bookings</a> |
-    {% if user.is_staff %}
-      <a href="{% url 'admin_bookings' %}">All Bookings (Admin)</a> |
-    {% endif %}
-    <form method="post" action="{% url 'logout' %}" style="display:inline;">
-      {% csrf_token %}<button>Logout</button>
-    </form>
-  {% else %}
-    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign up</a>
-  {% endif %}
-    </nav>
+        {% if forloop.counter|divisibleby:3 %}
+          </tr><tr align="center" valign="top">
+        {% endif %}
+      {% empty %}
+        <td>No rooms available.</td>
+      {% endfor %}
+    </tr>
+  </table>
+  <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}<button>Logout</button>
+      </form>
 </body>
 </html>

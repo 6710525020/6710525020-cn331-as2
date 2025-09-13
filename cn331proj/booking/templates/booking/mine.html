@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><title>My Bookings</title>
+  <meta charset="utf-8">
+  <meta name='viewport' content='width=device-width, initial-sclae=1'>
+  <title>My Bookings</title>
   <style>body{font-family:system-ui,Segoe UI,Roboto,Arial}</style>
 </head>
 <body>
   <h1>My Bookings ({{ user.username }})</h1>
-  <p><a href="/">← Back to rooms</a></p>
-
+<hr>
   <ul>
     {% for b in bookings %}
       <li>
@@ -20,5 +21,6 @@
       <li>You have no bookings.</li>
     {% endfor %}
   </ul>
+    <p><a href="/">← Back to rooms</a></p>
 </body>
 </html>
