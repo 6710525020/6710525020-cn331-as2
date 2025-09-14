@@ -6,6 +6,7 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = ("name", "capacity", "max_hours", "status")
     list_filter = ("status",)
     search_fields = ("name",)
+    fields = ("name", "capacity", "max_hours", "status", "image")
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
