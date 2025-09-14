@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name='viewport' content='width=device-width, initial-sclae=1'>
+  <title>Rooms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'booking/css/style.css' %}">
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial}</style>
+</head>
+<body>
+  <h1 class="main-title">Room Booking</h1>
+  <nav>
+    {% if user.is_authenticated %}
+      Hello, {{ user.username }} |
+      <a href="{% url 'mine' %}">My Bookings</a> |
+    {% if user.is_staff %}
+      <a href="{% url 'admin_bookings'%}">All bookings(admin) </a>
+    {% endif %}
+    {% else %}
+      <a href="{% url 'login' %}">Login</a> |
+      <a href="{% url 'signup' %}">Sign up</a>
+    {% endif %}
+  </nav>
+  
+<hr>
+
+  <h2>Rooms</h2>
+  <table border="0" width="100%" cellpadding="20">
+    <tr align="center" valign="top">
+      {% for room in rooms %}
+        <td width="33%">
+          {% if room.image %}
+            <img src="{{ room.image.url }}" alt="{{ room.name }}" width="300" height="200">
+          {% else %}
+            <div style="width:300px;height:200px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;">
+              ไม่มีรูป
+            </div>
+          {% endif %}
+          <h3>{{ room.name }}</h3>
+          <p>capacity : {{ room.capacity }} person</p>
+          <p>Max hours per booking : {{ room.max_hours }} hour</p>
+          <p>Status : {{ room.status }} </p>
+          <p><a href="{% url 'room_detail' room.id %}">{{ room.name }}</a></p>
+        </td>
+
+        {% if forloop.counter|divisibleby:3 %}
+          </tr><tr align="center" valign="top">
+        {% endif %}
+      {% empty %}
+        <td>No rooms available.</td>
+      {% endfor %}
+    </tr>
+  </table>
+  <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}<button>Logout</button>
+      </form>
+</body>
+</html>
