@@ -130,3 +130,31 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+import os
+import dj_database_url
+
+ALLOWED_HOST = ['*']
+DEBUG = os.environ.get('DEBUG','False') == 'True'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','default-key')
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATICFILES = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MIDDLEWARE = [
+    'django.middleware.security.SeccurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+]
+
+if not os.environ.get('DEBUG','False') == 'True':
+    DATABASES = {
+        'default' : dj_database_url.parse(os.environ.get('DATABASES_URL'))
+    }
+else:
+    DATABASES = {
+        'default' : {
+            'ENGINE' : 'django.db.backends.sqlite3',
+            'NAME' : 'db.sqlite3',
+        }
+    }
