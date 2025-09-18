@@ -143,7 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATICFILES = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MIDDLEWARE = [
-    'django.middleware.security.SeccurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
