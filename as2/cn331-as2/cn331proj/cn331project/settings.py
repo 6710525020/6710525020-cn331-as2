@@ -149,7 +149,7 @@ MIDDLEWARE = [
 
 if not os.environ.get('DEBUG','False') == 'True':
     DATABASES = {
-        'default' : dj_database_url.parse(os.environ.get('DATABASES_URL'))
+        'default' : dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 else:
     DATABASES = {
