@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-ho@_dwad5dl(=xy23s$h%0jr#j3=-+)*8!t+)szhr@mxm8^_tn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['six710525020-cn331-as2.onrender.com']
+CSRF_TRUSTED_ORIGIN = ['https://six710525020-cn331-as2.onrender.com']
 
 
 # Application definition
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'booking',
-    'cloudinary','cloudinary_storage'
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -164,3 +166,4 @@ else:
     }
 
 DEFAULT_FILE_STORAGE = 'cloundinary_storage.storage.MediaCloudinaryStorage'
+
