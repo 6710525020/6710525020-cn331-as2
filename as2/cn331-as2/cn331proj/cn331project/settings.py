@@ -131,9 +131,6 @@ LOGOUT_REDIRECT_URL = '/'
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
-
 import os
 import dj_database_url
 
@@ -166,6 +163,7 @@ else:
     }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 
 
