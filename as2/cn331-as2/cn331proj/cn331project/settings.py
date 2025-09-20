@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-ho@_dwad5dl(=xy23s$h%0jr#j3=-+)*8!t+)szhr@mxm8^_tn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['6710525020-cn331-as2.onrender.com']
-CSRF_TRUSTED_ORIGIN = ['https://6710525020-cn331-as2.onrender.com']
+ALLOWED_HOSTS = ['six710525020-cn331-as2.onrender.com']
+CSRF_TRUSTED_ORIGIN = ['https://six710525020-cn331-as2.onrender.com']
 
 
 # Application definition
@@ -131,6 +131,9 @@ LOGOUT_REDIRECT_URL = '/'
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 import os
 import dj_database_url
 
@@ -162,8 +165,10 @@ else:
         }
     }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+from cloudinary.storage import MediaCloudinaryStorage
+from django.core.files.storage import default_storage
 
-
-
-
+DEFAULT_FILE_STORAGE = 'cloundinary_storage.storage.MediaCloudinaryStorage'
