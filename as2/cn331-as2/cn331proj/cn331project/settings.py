@@ -134,7 +134,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 import os
 import dj_database_url
 
-ALLOWED_HOST = ['*']
+ALLOWED_HOSTS = ['*']
 DEBUG = os.environ.get('DEBUG','False') == 'True'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','default-key')
 
@@ -160,4 +160,5 @@ else:
             'ENGINE' : 'django.db.backends.sqlite3',
             'NAME' : 'db.sqlite3',
         }
+
     }
