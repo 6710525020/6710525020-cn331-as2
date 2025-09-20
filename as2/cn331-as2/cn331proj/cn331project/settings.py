@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'booking',
+    'cloudinary','cloudinary_storage'
 ]
 
 MIDDLEWARE = [
@@ -160,5 +161,6 @@ else:
             'ENGINE' : 'django.db.backends.sqlite3',
             'NAME' : 'db.sqlite3',
         }
-
     }
+
+DEFAULT_FILE_STORAGE = 'cloundinary_storage.storage.MediaCloudinaryStorage'
