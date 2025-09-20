@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ho@_dwad5dl(=xy23s$h%0jr#j3=-+)*8!t+)szhr@mxm8^_tn
 DEBUG = True
 
 ALLOWED_HOSTS = ['six710525020-cn331-as2.onrender.com']
-CSRF_TRUSTED_ORIGIN = ['https://six710525020-cn331-as2.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://six710525020-cn331-as2.onrender.com']
 
 
 # Application definition
@@ -143,7 +143,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','default-key')
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-STATICFILES = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -165,10 +165,4 @@ else:
         }
     }
 
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-from cloudinary.storage import MediaCloudinaryStorage
-from django.core.files.storage import default_storage
-
-DEFAULT_FILE_STORAGE = 'cloundinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
