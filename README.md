@@ -31,3 +31,4 @@ https://drive.google.com/file/d/1IQbfERUHbrtK6E7wdKYpqwouF9EfHRTm/view?usp=shari
 # 🔗 ลิงค์เว็บไซต์
 https://six710525020-cn331-as2.onrender.com
 # 🔗 ลิงค์คลิปอธิบายฟังก์ชัน
+https://drive.google.com/file/d/1TULXhD4x6pO3dxwVs195Kyx6pQzOiOEY/view?usp=drivesdk
