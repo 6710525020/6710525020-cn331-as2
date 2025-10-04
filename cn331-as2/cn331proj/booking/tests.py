@@ -108,8 +108,8 @@ class bookingTest(TestCase):
         c = Client()
         resp = c.get(reverse("index"))
         self.assertEqual(resp.status_code,200)
-        self.assertIn("room", resp.context)
-        self.assertGreaterEqual(resp.context["room"].count(),1)    
+        self.assertIn("rooms", resp.context)
+        self.assertGreaterEqual(resp.context["rooms"].count(),1)    
 
     def test_room_detail_invalid(self):
         # test room detail
@@ -134,15 +134,20 @@ class bookingTest(TestCase):
     def test_cancle_booking_owner_only(self):
         # owner can cancle booking
         c = Client()
-        start_time = timezone.now() + timedelta(hours=1)
-        end_time = start_time + timedelta(hours=1)
-        booking = Booking(room=self.room,user=self.user1,start_time=start_time,end_time=end_time)
+        time1 = timezone.now() + timedelta(hours=1)
+        time2 = time1 + timedelta(minutes=30)
+        time3 = time2 + timedelta(minutes=30)
+
+        booking = Booking.objects.create(room=self.room,user=self.user1,start_time=time1,end_time=time2)
         c.login(username="jigsaw", password="123456")
-        resp = c.post(reverse("cancle_booking", args=[booking.id]))
+        url = reverse("cancel_booking", args = [booking.id])
+        resp = c.post(url)
         self.assertEqual(resp.status_code, 302)
         self.assertFalse(Booking.objects.filter(id = booking.id).exists())
 
         # other try to cancle booking
-        booking2 = Booking(room=self.room,user=self.user2,start_time=start_time,end_time=end_time)
-        resp2 = c.post(reverse("cancle_booking", args=[booking2.id]))
+        booking2 = Booking.objects.create(room=self.room,user=self.user2,start_time=time2, end_time=time3)
+        url2 = reverse("cancel_booking", args = [booking2.id])
+        resp2 = c.post(url2)
         self.assertEqual(resp2.status_code, 404)
+        self.assertTrue(Booking.objects.filter(id = booking2.id).exists())
