@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-ho@_dwad5dl(=xy23s$h%0jr#j3=-+)*8!t+)szhr@mxm8^_tn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['six710525020-cn331-as2.onrender.com']
+CSRF_TRUSTED_ORIGIN = ['https://six710525020-cn331-as2.onrender.com']
 
 
 # Application definition
@@ -38,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'booking',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -74,12 +77,11 @@ WSGI_APPLICATION = 'cn331project.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'default' : {
+            'ENGINE' : 'django.db.backends.sqlite3',
+            'NAME' : 'db.sqlite3',
+        }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -130,3 +132,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+import os
+import dj_database_url
+
+ALLOWED_HOSTS = ['*']
+DEBUG = os.environ.get('DEBUG','False') == 'True'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','default-key')
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATICFILES = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+]
+
+DEFAULT_FILE_STORAGE = 'cloundinary_storage.storage.MediaCloudinaryStorage'

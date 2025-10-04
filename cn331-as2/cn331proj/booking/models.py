@@ -3,13 +3,14 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
 class Room(models.Model):
     name = models.CharField(max_length=100)     
     capacity = models.IntegerField(default=0)      
     max_hours = models.IntegerField(default=1)       
     status = models.CharField(max_length=20, default="AVAILABLE")
-    image = models.ImageField(upload_to="rooms/", null=True, blank=True)
+    image = CloudinaryField('image', blank=True, null=True)
 
     def __str__(self):
         return self.name

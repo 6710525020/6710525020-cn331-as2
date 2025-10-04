@@ -14,7 +14,10 @@
   <nav>
     {% if user.is_authenticated %}
       Hello, {{ user.username }} |
-      <a href="{% url 'mine' %}">My Bookings</a>
+      <a href="{% url 'mine' %}">My Bookings</a> |
+    {% if user.is_staff %}
+      <a href="{% url 'admin_bookings'%}">All bookings(admin) </a>
+    {% endif %}
     {% else %}
       <a href="{% url 'login' %}">Login</a> |
       <a href="{% url 'signup' %}">Sign up</a>
