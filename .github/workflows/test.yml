@@ -11,6 +11,7 @@ jobs:
       working-directory: cn331-as2/cn331proj
       run: |
         pip install --user -r requirements.txt
+        pip install coverage
         python manage.py makemigrations
         python manage.py migrate
         coverage run --source='.' manage.py test
