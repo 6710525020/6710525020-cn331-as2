@@ -8,11 +8,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run Django unit tests
-      working-directory: ./cn331proj
+      working-directory: cn331-as2/cn331proj
       run: |
-        pip3 install --user -r requirements.txt
-        python3 manage.py migrations
-        python3 manage.py migrate
+        pip install --user -r requirements.txt
+        python manage.py migrations
+        python manage.py migrate
         coverage run --source='.' manage.py test
         coverage report
         
