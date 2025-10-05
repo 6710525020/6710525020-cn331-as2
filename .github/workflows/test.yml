@@ -8,6 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run Django unit tests
+      working-directory: ./cn331proj
       run: |
         pip3 install --user -r requirements.txt
         python3 manage.py migrations
